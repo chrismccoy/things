@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Thing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' }
+            }
+          }
+        }
+      }
+    </script>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "uploadthing/client": "https://esm.sh/uploadthing@/client",
+        "@uploadthing/shared": "https://esm.sh/@uploadthing/shared"
+      }
+    }
+    </script>
+  </head>
+  <body class="bg-slate-50 min-h-screen flex items-center justify-center font-sans">
+
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden ring-1 ring-slate-900/5">
+      
+      <div class="bg-brand-600 px-6 py-8 text-center text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto opacity-90">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3.75m-3-3.75l-3 3.75M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+        </svg>
+        <h2 class="mt-4 text-2xl font-bold tracking-tight">Upload Image</h2>
+        <p class="mt-2 text-blue-100 opacity-80">Securely upload your assets</p>
+      </div>
+
+      <div class="p-6">
+        
+        <div id="upload-form">
+          <div id="dropzone" class="group relative flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-10 transition-all cursor-pointer hover:border-brand-500 hover:bg-brand-50">
+            <input type="file" id="file-input" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*" />
+            <div class="text-center z-10 pointer-events-none">
+              <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-100 group-hover:bg-brand-200 transition-colors mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-brand-600">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+              </div>
+              <p id="file-label" class="text-sm font-semibold text-slate-900">Click to upload or drag & drop</p>
+              <p id="file-sublabel" class="mt-1 text-xs text-slate-500">SVG, PNG, JPG or GIF</p>
+            </div>
+          </div>
+
+          <div id="progress-container" class="hidden mt-4">
+            <div class="flex justify-between text-xs text-slate-500 mb-1">
+              <span>Uploading...</span>
+              <span id="progress-text">0%</span>
+            </div>
+            <div class="w-full rounded-full bg-slate-100 h-2.5 overflow-hidden">
+              <div id="progress-bar" class="h-2.5 bg-brand-600 transition-all duration-300 ease-out rounded-full" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <button id="upload-btn" disabled class="mt-6 w-full flex items-center justify-center rounded-lg bg-slate-300 px-4 py-3 text-sm font-bold text-slate-500 transition-all disabled:cursor-not-allowed enabled:bg-brand-600 enabled:text-white enabled:hover:bg-brand-700 enabled:shadow-lg">
+            Confirm Upload
+          </button>
+        </div>
+
+        <div id="success-view" class="hidden flex-col items-center rounded-lg bg-green-50 p-6 text-center text-green-700">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 text-green-500 mb-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="font-semibold">Upload Successful!</p>
+          <p id="result-url" class="text-xs mt-2 text-green-600 break-all"></p>
+          <button id="reset-btn" class="mt-4 text-sm font-medium underline hover:text-green-800">Upload another</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/things.js"></script>
+  </body>
+</html>
